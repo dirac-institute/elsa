@@ -154,7 +154,7 @@ class DOScheduler():
         private_ipv4 = [ip for ip in ipv4 if ip['type'] == 'private'][0]
         private_ip = private_ipv4['ip_address']
 
-        exit_code, stdout, stderr = self.initialize_droplet(public_ip)
+        exit_code, stdout, stderr = self.initialize_droplet(private_ip)
         if exit_code != 0:
             print(f"[Error] Initialized droplet: exit_code = {exit_code}, stdout = {stdout}, stderr = {stderr}")
             free_tag.add_droplets([vm.id])
