@@ -94,7 +94,7 @@ class DOScheduler():
         return _droplet
 
     def initialize_droplet(self, ip):
-        self.events.append("Initializing VM")
+        self.events.append("Initializing virtual machine")
         # cmd = open("/root/checkpointspawner/repo/bootstrap.sh").read()
         ssh = subprocess.Popen(
             [
@@ -116,7 +116,7 @@ class DOScheduler():
         
 
     def get_vm(self, size_slug, tags=[]):
-        self.events.append("Provisioning VM")
+        self.events.append("Finding virtual machine with size {}".format(size_slug))
         # returns (id, hostname, ssh_conn_string)
         free_vms = self.list_vms(sizes=[size_slug], tags=tags + ['free'])
 
@@ -124,8 +124,10 @@ class DOScheduler():
             print("found free VMs:", free_vms)
             vm = random.choice(free_vms)
             print("chose random VM:", vm)
+            self.events.append("Assigned to virtual machine {}".format(vm))
         else:
             print("no free VMs, making a new one")
+            self.events.append("No free virtual machines with size {}, creating a new one".format(size_slug))
             vm = self.make_droplet(f"jupyter-{get_random_string(6)}", size_slug, tags=tags + ['free'])
         
         # TODO: fix race condition

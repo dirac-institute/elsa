@@ -44,3 +44,7 @@ c.ConfigurableHTTPProxy.command = [
 
 c.JupyterHub.ssl_key = '/etc/letsencrypt/live/adass.dirac.institute/privkey.pem'
 c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/adass.dirac.institute/fullchain.pem'
+
+c.JupyterHub.extra_handlers = [
+    (r'/migrate', checkpoint_demo.handler.migrate.MigrateHandler),
+]

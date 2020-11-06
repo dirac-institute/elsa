@@ -403,7 +403,7 @@ class PodmanSpawner(Spawner):
             if break_while_loop:
                 break
             await asyncio.sleep(1)
-        self.events = []
+        self.events.clear()
 
     @run_on_executor
     def asynchronize(self, method, *args, **kwargs):
@@ -469,5 +469,5 @@ class PodmanSpawner(Spawner):
         super().clear_state()
         self.container_name = None
         self.vm_id = None
-        self.events = []
+        self.events.clear()
 
