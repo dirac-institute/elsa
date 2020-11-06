@@ -1,0 +1,9 @@
+{
+    "argv": [
+     "/opt/conda/share/jupyter/kernels/lsst/start_lsst.sh",
+     "-f",
+     "{connection_file}"
+    ],
+    "display_name": "LSST",
+    "language": "python"
+}
