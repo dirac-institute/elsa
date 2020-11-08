@@ -15,16 +15,32 @@
         background-color: white;
     }
 
+    .auth-box {
+         box-shadow: 0px 0px 10px 2px #0ff;
+         border-radius: 10px;
+    }
+
+    /* hide the navigation bar, which only has JupyterHub logo on the login
+     * screen */
     .navbar-default {
         display: none;
     }
     
+    
+    /* make the login form wider -- it's more aesthetically pleasing this way */
     #login-main form {
         width: 450px;
     }
     
+    /* change the colors to UW palette */
+    /* add rounded borders */
     #login-main .auth-form-header {
         background-color: #4b2e83;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    #login-main .auth-form-body {
+        border-radius: 0px 0px 10px 10px
     }
     
     .btn-jupyter {
@@ -59,6 +75,7 @@
 </div>
 {% else %}
 <form action="{{login_url}}?next={{next}}" method="post" role="form">
+  <div class="auth-box">
   <div class="auth-form-header">
     Sign in
   </div>
@@ -107,6 +124,7 @@
         <i class="fa fa-spinner"></i>
       </div>
     </div>
+  </div>
   </div>
 </form>
 {% endif %}
