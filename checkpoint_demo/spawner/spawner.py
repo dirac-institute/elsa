@@ -64,8 +64,12 @@ class PodmanSpawner(Spawner):
 
     start_timeout = 60 * 5
 
+    def log_event(self, message):
+        import time
+        return self.events.append(f"[{time.ctime()}] {message}")
+
     def get_image(self):
-        self.events.append(f"Pulling image {self.image}")
+        self.log_event(f"Pulling image {self.image}")
         self.podman.pull(self.image)
         return self.image
 
@@ -270,7 +274,7 @@ class PodmanSpawner(Spawner):
 
     async def _start(self):
         # for i in range(10):
-        #     self.events.append(f"progress: {i}")
+        #     self.log_event(f"progress: {i}")
         #     logging.debug(f"in _start: progress: {i}")
         #     await self.asynchronize(time.sleep(3))
         # return ("127.0.0.1", 8888)
@@ -324,15 +328,15 @@ class PodmanSpawner(Spawner):
             if checkpoint_exists:
                 # restore if exists
                 try:
-                    self.events.append("Restoring checkpointed server")
+                    self.log_event("Restoring checkpointed server")
                     await self.asynchronize(
                         self.restore_server, self.container_name
                     )
                 except Exception as e:
                     self.log.error("Error restoring server: %s", e)
-                    self.events.append("Error restoring server")
+                    self.log_event("Error restoring server")
                     try:
-                        self.events.append("Starting server")
+                        self.log_event("Starting server")
                         await self.asynchronize(
                             self.podman.start, self.container_name
                         )
