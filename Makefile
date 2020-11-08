@@ -19,8 +19,8 @@ push: build _push_hub _push_notebook
 
 # start JupyterHub
 _start_jupyterhub:
-	podman container rm adass-jupyterhub && \
-	podman run -it \
+	( podman container inspect adass-jupyterhub > /dev/null 2>&1 && podman container stop adass-jupyterhub ) || true
+	podman run --rm -it \
 		-e DIGITALOCEAN_ACCESS_TOKEN=$(do_token) \
 		-p 443:8000 \
 		-p 8081:8081 \
