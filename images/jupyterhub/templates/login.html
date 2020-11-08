@@ -4,7 +4,7 @@
 {{ super() }}
 <style type="text/css">
     body {
-        background: url("{{ static_url('images/adass2020.png') }}") no-repeat center center fixed; 
+        background: url("{{ static_url('images/dirac-seattle.jpg') }}") no-repeat center bottom fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -13,6 +13,27 @@
     
     .auth-form-body {
         background-color: white;
+    }
+
+    .navbar-default {
+        display: none;
+    }
+    
+    #login-main form {
+        width: 450px;
+    }
+    
+    #login-main .auth-form-header {
+        background-color: #4b2e83;
+    }
+    
+    .btn-jupyter {
+        background-color: #4b2e83;
+        border-color: #85754d;
+    }
+    .btn-jupyter:hover {
+        background-color: gray;
+        border-color: #4b2e83;
     }
 </style>
 {% endblock %}
