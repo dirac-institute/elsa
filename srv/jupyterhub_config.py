@@ -3,6 +3,13 @@ from jupyterhub.auth import DummyAuthenticator
 from jinja2 import Template
 import checkpoint_demo
 
+# Not sure why this can't be set directly...
+# It looks like it's a JupyterHub class property: https://github.com/jupyterhub/jupyterhub/blob/dac75ff996adb2831fcaeecb11811da1be8b03eb/jupyterhub/handlers/base.py#L764
+# Learned about tornado_settings from https://github.com/jupyterhub/jupyterhub/issues/1222#issuecomment-320494512
+c.JupyterHub.tornado_settings = {
+    'slow_stop_timeout': 120
+}
+
 c.JupyterHub.spawner_class = checkpoint_demo.spawner.PodmanSpawner
 c.JupyterHub.authenticator_class = DummyAuthenticator
 
