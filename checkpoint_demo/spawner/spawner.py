@@ -237,7 +237,7 @@ class PodmanSpawner(Spawner):
                 "--import",
                 f"/nfs/checkpoints/{container_name}.tar.gz",
                 "--tcp-established",
-                "--keep"
+#                "--keep"
             ]
         )
         return res
