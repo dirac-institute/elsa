@@ -56,11 +56,9 @@ class PodmanSpawner(Spawner):
     )
 
     # sizes = [size.slug for size in scheduler.manager.get_all_sizes()]
-    sizes = [
-        "s-1vcpu-1gb",
-        "s-1vcpu-2gb",
-        "s-1vcpu-3gb",
-    ]
+    sizes = List(
+        config=True
+    )
 
     start_timeout = 60 * 5
 
@@ -81,7 +79,7 @@ class PodmanSpawner(Spawner):
     def options_from_form(self, form_data):
         self.log.info("got form data: %s", form_data)
         return {
-            'size' : self.sizes[int(form_data.get('host')[0])]
+            'size' : self.sizes[int(form_data.get('host')[0]) - 1]
         }
 
     def __init__(self, *args, **kwargs):
@@ -157,6 +155,9 @@ class PodmanSpawner(Spawner):
             _path = _env.pop('PATH')
         
         nb_user = _env.get("NB_USER")
+
+        # _env['MEM_LIMIT'] = self.user_options.get("size").get("memory")
+        # _env['CPU_LIMIT'] = self.user_options.get("size").get("cpu")
 
         # _env['JUPYTERHUB_API_URL'] = "10.88.0.1:8081/"
 
@@ -282,7 +283,7 @@ class PodmanSpawner(Spawner):
         self.log.info("Got user options: %s", self.user_options)
         # request VM
         vm_id, vm_ip = await self.asynchronize(
-            self.scheduler.get_vm, self.user_options.get("size")
+            self.scheduler.get_vm, self.user_options.get("size").get("slug")
         )
         self.vm_id = vm_id
         # connect to VM for executing Podman

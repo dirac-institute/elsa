@@ -1,1 +1,1 @@
-from . import migrate
+from . import migrate, sizes, config

@@ -34,3 +34,13 @@ _start_jupyterhub:
 
 start: build _start_jupyterhub
 
+_start_notebook:
+	( podman container inspect adass-notebook > /dev/null 2>&1 && podman container stop adass-notebook ) || true
+	podman run --rm -it \
+		--user root \
+		--name adass-notebook \
+		-p 8888:8888 \
+		-v ${PWD}/images/notebook/nbresuse/nbresuse/static/main.js:/opt/conda/share/jupyter/nbextensions/nbresuse/main.js \
+		astronomycommons/adass-notebook:$(tag)
+
+start_notebook: _build_notebook _start_notebook

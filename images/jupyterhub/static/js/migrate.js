@@ -75,7 +75,12 @@ require(["jquery", "jhapi"], function(
       api.start_server(
         user, {
           data: JSON.stringify({
-            "size" : migrate_to
+            // TODO: hit /hub/migrate/sizes and match to current size object?
+            //       would include description and other info. Right now, slug is
+            //       the only import data used during spawning
+            "size" : {
+              "slug" : migrate_to
+            }
           })
         }
       );

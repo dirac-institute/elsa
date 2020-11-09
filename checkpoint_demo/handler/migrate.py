@@ -44,3 +44,4 @@ class MigrateHandler(BaseHandler):
             'migrate.html',
         )
         self.finish(html)
+

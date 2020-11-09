@@ -6,9 +6,12 @@ ADD start.sh /usr/local/bin/
 RUN chown -R $NB_UID:$NB_GID /opt/conda/share/jupyter/kernels \
  && ln -s /nfs/lsst /tmp/lsst
 
-RUN python -m pip install nbresuse && \
+USER $NB_USER
+ADD nbresuse /tmp/nbresuse
+RUN python -m pip install /tmp/nbresuse/. && \
     jupyter serverextension enable --py nbresuse --sys-prefix && \
     jupyter nbextension install --py nbresuse --sys-prefix && \
-    jupyter nbextension enable --py nbresuse --sys-prefix 
+    jupyter nbextension enable --py nbresuse --sys-prefix && \
+    rm -rf /tmp/nbresuse
 
-USER $NB_USER
+ADD jupyter_notebook_config.py /opt/conda/etc/jupyter/jupyter_notebook_config.py
