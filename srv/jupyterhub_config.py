@@ -13,6 +13,9 @@ c.JupyterHub.tornado_settings = {
 c.JupyterHub.spawner_class = checkpoint_demo.spawner.PodmanSpawner
 c.JupyterHub.authenticator_class = DummyAuthenticator
 
+# set .start() timeout to 5 minutes
+c.PodmanSpawner.start_timeout = 60 * 5
+
 c.PodmanSpawner.scheduler_image = "72522808"
 c.PodmanSpawner.scheduler_region = "sfo3"
 c.PodmanSpawner.scheduler_vpc = "ed580488-6eb8-4fc2-84e9-184502790372"
