@@ -10,8 +10,24 @@ c.JupyterHub.tornado_settings = {
     'slow_stop_timeout': 120
 }
 
+# Authentication
+#c.JupyterHub.authenticator_class = DummyAuthenticator
+
+from oauthenticator.github import LocalGitHubOAuthenticator
+import os
+c.JupyterHub.authenticator_class = LocalGitHubOAuthenticator
+c.GitHubOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
+
+c.Authenticator.delete_invalid_users = True
+
+#c.LocalGitHubOAuthenticator.add_user_cmd = ['adduser', '-q', '--gecos', '""', '--home', '/nfs/home/USERNAME', '--disabled-password']
+c.LocalAuthenticator.create_system_users=True
+
+c.Authenticator.allowed_users = { 'mjuric' }
+c.Authenticator.admin_users = { 'mjuric' }
+
+# Spawner
 c.JupyterHub.spawner_class = checkpoint_demo.spawner.PodmanSpawner
-c.JupyterHub.authenticator_class = DummyAuthenticator
 
 # set .start() timeout to 5 minutes
 c.PodmanSpawner.start_timeout = 60 * 5
