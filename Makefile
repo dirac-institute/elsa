@@ -34,8 +34,7 @@ _start_jupyterhub:
 		-v /root/.ssh/id_rsa_podman:/root/.ssh/id_rsa_podman \
 		-v /root/.ssh/id_rsa_podman.pub:/root/.ssh/id_rsa_podman.pub \
 		--name adass-jupyterhub \
-		astronomycommons/adass-jupyterhub:$(tag) \
-		jupyterhub --debug \
+		astronomycommons/adass-jupyterhub:$(tag)
 
 start: build _start_jupyterhub
 

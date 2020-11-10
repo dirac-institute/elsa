@@ -4,6 +4,8 @@
 #
 HOMEDIR=/home
 
+echo "================ STARTING JupyterHUB ================"
+
 # Make sure we have jovyan as uid/gid 1000/100
 [[ -e "$HOMEDIR/jovyan" ]] || mkdir -p "$HOMEDIR/jovyan"
 chown 1000.100 "$HOMEDIR/jovyan"

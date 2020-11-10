@@ -1,13 +1,87 @@
 {% extends "page.html" %}
 
+{% block stylesheet %}
+{{ super() }}
+<style type="text/css">
+
+.base-timer {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.base-timer__svg {
+  transform: scaleX(-1);
+}
+
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+.base-timer__path-remaining {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  fill-rule: nonzero;
+  stroke: currentColor;
+}
+
+.base-timer__path-remaining.green {
+  color: rgb(65, 184, 131);
+}
+
+.base-timer__path-remaining.orange {
+  color: orange;
+}
+
+.base-timer__path-remaining.red {
+  color: red;
+}
+
+.base-timer__label {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+</style>
+{% endblock %}
+
+
 {% block main %}
 <div class="container">
+    <div class="row" style="height: 100px;"></div>
     <div class="row">
-        <div class="text-center">
-            <p id="update">
-                
+      <div class="col-xs-2"></div>
+        <div class="col-xs-4">
+        <div class="text-center" style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 150px;
+        ">
+            <p id="update" style="font-size: 24px">
+                Hello world!
             </p>
         </div>
+      </div>
+      <div class="col-xs-4">
+        <div id="app" style="width:150px; margin: auto;"></div>
+      </div>
+      <div class="col-xs-2"></div>
     </div>
 </div>
 {% endblock %}

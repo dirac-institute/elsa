@@ -13,6 +13,7 @@ define([
                         .addClass('btn')
                         .addClass('btn-default')
                         .css('border', 'none')
+                        .css('color', '#00aa00')
                         .attr('href', '/hub/migrate?checkpoint=true')
                         .append(
                             $('<i>')
@@ -26,6 +27,7 @@ define([
                         .addClass('btn')
                         .addClass('btn-default')
                         .css('border', 'none')
+                        .css('color', '#00aa00')
                         .attr('id', 'checkpoint-button')
                         // .addClass('dropdown-toggle')
                         .attr('data-toggle', 'dropdown')
