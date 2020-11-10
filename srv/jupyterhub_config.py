@@ -14,17 +14,39 @@ c.JupyterHub.tornado_settings = {
 #c.JupyterHub.authenticator_class = DummyAuthenticator
 
 from oauthenticator.github import LocalGitHubOAuthenticator
+from oauthenticator.oauth2 import OAuthCallbackHandler
 import os
+from urllib.parse import parse_qs, urlparse
+from tornado.httputil import url_concat
+
+class MyAuthHandler(OAuthCallbackHandler):
+    def get_next_url(self, user=None):
+        # get default next url
+        _next_url = super().get_next_url(user=user)
+        
+        url_parsed = urlparse(_next_url)
+        url = url_parsed.scheme + url_parsed.netloc + url_parsed.path
+        query_arguments = { k : v for k, v in [tuple(i.split("=")) for i in url_parsed.query.split("&")]}
+        
+        # remove 'code' and 'state' query arguments
+        query_arguments.pop("code", None)
+        query_arguments.pop("state", None)
+
+        next_url = url_concat(url, query_arguments)
+
+        return next_url
+
 c.JupyterHub.authenticator_class = LocalGitHubOAuthenticator
 c.GitHubOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
+LocalGitHubOAuthenticator.callback_handler = MyAuthHandler
 
 c.Authenticator.delete_invalid_users = True
 
 #c.LocalGitHubOAuthenticator.add_user_cmd = ['adduser', '-q', '--gecos', '""', '--home', '/nfs/home/USERNAME', '--disabled-password']
 c.LocalAuthenticator.create_system_users=True
 
-c.Authenticator.allowed_users = { 'mjuric' }
-c.Authenticator.admin_users = { 'mjuric' }
+c.Authenticator.allowed_users = { 'mjuric', 'stevenstetzler' }
+c.Authenticator.admin_users = { 'mjuric', 'stevenstetzler' }
 
 # Spawner
 c.JupyterHub.spawner_class = checkpoint_demo.spawner.PodmanSpawner

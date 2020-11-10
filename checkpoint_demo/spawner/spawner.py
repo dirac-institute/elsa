@@ -78,9 +78,12 @@ class PodmanSpawner(Spawner):
 
     def options_from_form(self, form_data):
         self.log.info("got form data: %s", form_data)
-        return {
-            'size' : self.sizes[int(form_data.get('host')[0]) - 1]
-        }
+        if form_data.get('host'):
+            return {
+                'size' : self.sizes[int(form_data.get('host')[0]) - 1]
+            }
+        else:
+            return form_data
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
