@@ -11,7 +11,12 @@ HOMEDIR=/home
 
 # Make sure we have jovyan as uid/gid 1000/100
 [[ -e "$HOMEDIR/jovyan" ]] || mkdir -p "$HOMEDIR/jovyan"
-chown 1000.100 "$HOMEDIR/jovyan"
+chown 1000:100 "$HOMEDIR/jovyan"
+
+# More general based on environment variables? NB_USER=jovyan, 
+# NB_UID=100, NB_GID=100 by default
+# [[ -e "$HOMEDIR/$NB_USER" ]] || mkdir -p "$HOMEDIR/$NB_USER"
+# chown $NB_UID:$NB_GID "$HOMEDIR/$NB_USER"
 
 for USER in $(ls $HOMEDIR); do
 	if [[ "$USER" == _* ]]; then
@@ -28,7 +33,7 @@ for USER in $(ls $HOMEDIR); do
 
         echo "adding user $USER, uid/gid = $USERID/$GROUPID"
         groupadd -g $GROUPID $USER || true
-        useradd -M -s /bin/bash -u $USERID -g $GROUPID $USER
+        useradd -m -s /bin/bash -u $USERID -g $GROUPID -k /etc/skel $USER || true
 done
 
 # Exec the specified command or fall back on bash

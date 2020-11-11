@@ -32,6 +32,11 @@ define([
                         // .addClass('dropdown-toggle')
                         .attr('data-toggle', 'dropdown')
                         .attr('href', '#')
+                        .click(function() {
+                            $('#save-notebook')
+                                .trigger('click');
+                            return true;
+                        })
                         .append(
                             $('<i>')
                                 .addClass('fas fa-fast-forward')
@@ -100,10 +105,8 @@ define([
                     }
                     if (limits['memory']['warn']) {
                         $('#nbresuse-display').addClass('nbresuse-warn');
-                        $('#checkpoint-button').addClass('nbresuse-warn');
                     } else {
                         $('#nbresuse-display').removeClass('nbresuse-warn');
-                        $('#checkpoint-button').removeClass('nbresuse-warn');
                     }
                 }
 
@@ -125,8 +128,13 @@ define([
                             $('<a>')
                                 .attr('href', '/hub/migrate?migrate_to=' + size['slug'] + '&checkpoint=true')
                                 .html(size['description'])
+                                .click(function() {
+                                    $('#save-notebook')
+                                        .trigger('click');
+                                    return true;
+                                })
                         )
-                    )
+                    );
                 });
             }
         });    

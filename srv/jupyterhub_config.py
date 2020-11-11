@@ -46,7 +46,7 @@ c.Authenticator.delete_invalid_users = True
 c.LocalAuthenticator.create_system_users=True
 c.GitHubOAuthenticator.allowed_organizations = { 'dirac-institute', 'astronomy-commons' }
 
-c.Authenticator.allowed_users = { 'mjuric', 'stevenstetzler' }
+#c.Authenticator.allowed_users = { 'mjuric', 'stevenstetzler' }
 c.Authenticator.admin_users = { 'mjuric', 'stevenstetzler' }
 
 # Spawner

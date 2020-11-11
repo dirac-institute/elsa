@@ -191,10 +191,10 @@ class PodmanSpawner(Spawner):
         flags += [
             "-v",
             "/nfs/home:/home",
-            # "-v",
-            # "/nfs/home/{nb_user}:/home/{nb_user}".format(nb_user=nb_user),
             "-v",
-            "/nfs/lsst:/nfs/lsst"
+            "/nfs/lsst:/nfs/lsst",
+            "-v",
+            "/nfs/etc:/etc",
         ]
 
         flags += [
