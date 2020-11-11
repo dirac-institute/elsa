@@ -38,7 +38,7 @@ an issue) and we'll gelp you get started.
 
 We also have a running instance at:
 
-	https://elsa.dirac.dev
+[https://elsa.dirac.dev](https://elsa.dirac.dev)
 
 If you're interested in trying it out, open an Issue with a subject “Test
 Drive: ...short description...”, and describe what you’d be interested in
