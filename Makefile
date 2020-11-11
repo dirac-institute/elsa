@@ -23,14 +23,14 @@ _start_jupyterhub:
 	podman run --rm -it \
 		-e DIGITALOCEAN_ACCESS_TOKEN=$(do_token) \
 		-e GITHUB_CLIENT_ID=a936203117c77fc96e1a \
-		-e GITHUB_CLIENT_SECRET=06757e01952f40d392eaaddf74a237fa1d4e0fb5 \
+		-e GITHUB_CLIENT_SECRET=$(github_oauth_secret) \
 		-e OAUTH_CALLBACK_URL=https://elsa.dirac.dev/hub/oauth_callback \
 		-p 443:8000 \
 		-p 8081:8081 \
 		-v /nfs/home:/home \
 		-v /etc/letsencrypt:/etc/letsencrypt \
 		-v ${PWD}/srv:/srv/jupyterhub \
-		-v ${PWD}/checkpoint_demo:/usr/local/lib/python3.8/dist-packages/checkpoint_demo \
+		-v ${PWD}/elsa:/usr/local/lib/python3.8/dist-packages/elsa \
 		-v /root/.ssh/id_rsa_podman:/root/.ssh/id_rsa_podman \
 		-v /root/.ssh/id_rsa_podman.pub:/root/.ssh/id_rsa_podman.pub \
 		--name adass-jupyterhub \

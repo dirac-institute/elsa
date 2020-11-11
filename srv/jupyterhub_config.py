@@ -1,7 +1,7 @@
 
 from jupyterhub.auth import DummyAuthenticator
 from jinja2 import Template
-import checkpoint_demo
+import elsa
 
 # Not sure why this can't be set directly...
 # It looks like it's a JupyterHub class property: https://github.com/jupyterhub/jupyterhub/blob/dac75ff996adb2831fcaeecb11811da1be8b03eb/jupyterhub/handlers/base.py#L764
@@ -50,7 +50,7 @@ c.GitHubOAuthenticator.allowed_organizations = { 'dirac-institute', 'astronomy-c
 c.Authenticator.admin_users = { 'mjuric', 'stevenstetzler' }
 
 # Spawner
-c.JupyterHub.spawner_class = checkpoint_demo.spawner.PodmanSpawner
+c.JupyterHub.spawner_class = elsa.spawner.PodmanSpawner
 
 # set .start() timeout to 5 minutes
 c.PodmanSpawner.start_timeout = 60 * 5
@@ -118,12 +118,12 @@ c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/adass.dirac.institute/fullchain.p
 c.JupyterHub.extra_handlers = [
     (
         r'/migrate', 
-        checkpoint_demo.handler.migrate.MigrateHandler
-        # dict(config=checkpoint_demo.handler.config.MigrateConfig())
+        elsa.handler.migrate.MigrateHandler
+        # dict(config=elsa.handler.config.MigrateConfig())
     ),
     (
         r'/migrate/sizes', 
-        checkpoint_demo.handler.sizes.SizesHandler, 
+        elsa.handler.sizes.SizesHandler, 
         dict(sizes=_sizes)
     )
 ]
