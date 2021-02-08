@@ -44,7 +44,8 @@ c.Authenticator.delete_invalid_users = True
 
 #c.LocalGitHubOAuthenticator.add_user_cmd = ['adduser', '-q', '--gecos', '""', '--home', '/nfs/home/USERNAME', '--disabled-password']
 c.LocalAuthenticator.create_system_users=True
-c.GitHubOAuthenticator.allowed_organizations = { 'dirac-institute', 'astronomy-commons' }
+c.GitHubOAuthenticator.allowed_organizations = { 'dirac-institute', 'astronomy-commons', 'jupyter-elsa-demo' }
+c.GitHubOAuthenticator.scope = [ 'read:user', 'read:org' ]
 
 #c.Authenticator.allowed_users = { 'mjuric', 'stevenstetzler' }
 c.Authenticator.admin_users = { 'mjuric', 'stevenstetzler' }
